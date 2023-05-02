@@ -8,7 +8,7 @@ import org.example.template.Animal;
     Materia de Enfasis: Patron de diseño Pontificia Universidad Javeriana de Bogota
     Ejemplo de uso de los patrones de diseño:
 
-    Autores: Juan Esteban Hurquijo Ortiz y Alejandro Sacristan Leal
+    Autores: Juan Esteban Urquijo y Alejandro Sacristan Leal
     En colaboracion con el patron template method
     En colaboracion con el patron builder
 
