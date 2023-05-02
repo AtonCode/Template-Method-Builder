@@ -1,10 +1,8 @@
 package org.example;
 
-import org.example.builder.AnimalBuilder;
-import org.example.builder.Builder;
+import org.example.builder.impl.AnimalBuilderDirector;
+import org.example.builder.impl.PerroBuilder;
 import org.example.template.Animal;
-import org.example.template.impl.Gato;
-import org.example.template.impl.Perro;
 
 /*
     Materia de Enfasis: Patron de diseño Pontificia Universidad Javeriana de Bogota
@@ -31,12 +29,7 @@ import org.example.template.impl.Perro;
     Se usara el patron builder para construir un animal perro desde un patron template method
 
     RETO: Agregar Gato. El gato esta en una etapa de vida diferente al perro. El gato tiene 7 vidas.
-
-    NOTA: Si desea quitar el patron builde solo debe intercambiar el contenido del main con los comentarios
-    que dicen "MAIN Usando SOLO el template method para construir un estados de vida de un animal" : )
-
-            La clase Animal es el themeplate method
-            La clase builder es el AnimalBuilder
+    El gato tiene un poder de ataque diferente al perro. El gato tiene un poder de defensa diferente al perro.
 
  */
 
@@ -45,49 +38,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Builder de perro cachorro (nace y crece)
-        Builder builder = new AnimalBuilder();
-        builder.construirNombre("Eva");
-        builder.construirEdad(1);
-        builder.construirRaza("Rootweiller");
-        ((AnimalBuilder) builder).construirPerroSaltador();
 
-        // Builder + Template method
-        //Usando el template method para construir un estados de vida de un animal y el builder para construir un animal
-        Animal perro = builder.obtenerAnimal();
-        System.out.println(perro.toString()); // Salida: Perro [nombre=Eva, edad=4, raza=Rootweiller]
-        System.out.println(".................................................................");
+        // Builder method
+        AnimalBuilderDirector director = new AnimalBuilderDirector();
+        Animal perro = director.construirPerro();
 
+        // Template method
+        perro.vivir();
+        perro.descansar();
 
-        // Builder de Perron viejo (nace y envejece)
-        builder.construirNombre("Tony");
-        builder.construirEdad(7);
-        builder.construirRaza("Labrador");
-        ((AnimalBuilder) builder).construirPerroFallecido();
-
-        // Builder + Template method
-        Animal perroViejo = builder.obtenerAnimal();
-        System.out.println(perroViejo.toString()); // Salida: Perro [nombre=Tony, edad=7, raza=Labrador]
-        System.out.println(".................................................................");
-
-
-        // ............................................................. ...
-        // Usando el builder para construir un animal gato desde un patron template method
-        // ............................................................. ...
+        // Prints
+        perro.mostrar();
+        perro.getCuerpo().mostrar();
 
     }
-
-    /*
-        // MAIN Usando SOLO el template method para construir un estados de vida de un animal
-
-
-        Animal perro = new Perro();
-        perro.vivir(); // Salida: Ha nacido un animal mamífero. El animal está creciendo. El perro se ha apareado. El perro está envejeciendo.
-
-        Animal gato = new Gato();
-        gato.vivir(); // Salida: Ha nacido un animal mamífero. El animal está creciendo. El gato se ha apareado. El gato está envejeciendo.
-
-    */
-
 
 }

@@ -1,53 +1,75 @@
 package org.example.builder;
 
-
+import org.example.builder.animalParts.Cuerpo;
 import org.example.template.Animal;
-import org.example.template.impl.Gato;
-import org.example.template.impl.Perro;
 
-public class AnimalBuilder implements Builder {
-    private String nombre;
-    private int edad;
-    private String raza;
-    private Animal animal;
+public abstract class AnimalBuilder implements Builder {
+    protected Animal animal;
 
-    public void construirNombre(String nombre) {
-        this.nombre = nombre;
+    public AnimalBuilder(){
+
+        this.animal = new Animal() {
+              @Override
+                public void reproducirse() {
+                    System.out.println("El animal está reproduciéndose.");
+                }
+
+                @Override
+                public void envejecer() {
+                    System.out.println("El animal está envejeciendo.");
+                }
+
+            @Override
+            public Cuerpo getCuerpo() {
+                  return new Cuerpo();
+            }
+
+            @Override
+            public void setCuerpo(Cuerpo cuerpoPerro) {
+                System.out.println("El animal tiene un cuerpo.");
+            }
+        };
     }
 
-    public void construirEdad(int edad) {
-        this.edad = edad;
+    public void crearAnimal() {
+        // Build the animal
+        animal = new Animal() {
+            @Override
+            public void reproducirse() {
+                System.out.println("El animal está reproduciéndose.");
+            }
+
+            @Override
+            public void envejecer() {
+                System.out.println("El animal está envejeciendo.");
+            }
+
+            @Override
+            public Cuerpo getCuerpo() {
+                return new Cuerpo();
+            }
+
+            @Override
+            public void setCuerpo(Cuerpo cuerpoPerro) {
+                System.out.println("El animal tiene un cuerpo.");
+            }
+
+        };
     }
 
-    public void construirRaza(String raza) {
-        this.raza = raza;
+    public  void construirNombre(String nombre){
+        animal.setNombre(nombre);
     }
 
-    public Animal obtenerAnimal() {
+    public  void construirEdad(int edad){
+        animal.setEdad(edad);
+    }
+
+    public  void construirRaza(String raza){
+        animal.setRaza(raza);
+    }
+
+    public Animal getAnimal() {
         return animal;
     }
-
-
-    public void construirPerroSaltador() {
-        this.animal = new Perro(nombre, edad, raza, new CuerpoPerro("Cobra", "Jaguar", "Negras y Rojo", "Larga"));
-        this.animal.nacer();
-        this.animal.ladrar();
-        this.animal.correr();
-        this.animal.saltar();
-
-
-    }
-    public void construirPerroFallecido() {
-        this.animal = new Perro(nombre, edad, raza, new CuerpoPerro("Elefante", "Mico", "Cuadrupedo", "Larga"));
-        this.animal.vivir();
-        this.animal.dormir();
-
-    }
-
-    public void construirGato() {
-        this.animal = new Gato(nombre, edad, raza);
-    }
-
-
 }
-
